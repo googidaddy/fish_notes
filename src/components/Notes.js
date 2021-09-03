@@ -15,6 +15,7 @@ const Notes = () => {
   const dispatch = useDispatch()
   // useSelector 选择所有便签,index.js中combine了对象.
   const notes = useSelector(({ filter, notes }) => {
+    
     if ( filter === 'ALL' ) {
       return notes
     }

@@ -2,7 +2,7 @@
 import noteService from '../service/notes'
 
 // state = []
-const noteReducer = (state = null, action) => {
+const noteReducer = (state = [], action) => {
   switch(action.type) {
     case 'NEW_NOTE':
       return [...state, action.data]
@@ -26,7 +26,7 @@ const noteReducer = (state = null, action) => {
 const generateId = () =>
   Number((Math.random() * 1000000).toFixed(0))
 
-// InitializeNotes
+// Init-Notes
 export const initializeNotes = () => {
   return async dispatch => {
     const notes = await noteService.getAll()
@@ -37,18 +37,32 @@ export const initializeNotes = () => {
   }
 }
 
+// InitializeUserNotes
+export const UserNotes = (user) => {
+  return async dispatch => {
+    const notes = await noteService.getUserAll(user)
+    dispatch({
+      type: 'INIT_NOTES',
+      data: notes
+    })
+  }
+}
 
 
 // createNote
 export const createNote = content => {
+  console.log(content);
   return async dispatch => {
     const newNote = await noteService.createNew(content)
+    console.log(newNote);
     dispatch({
       type: 'NEW_NOTE',
       data: newNote,
     })
   }
 }
+
+
 
 export const toggleImportanceOf = (id) => {
   return {

@@ -4,21 +4,21 @@ import { createNote } from '../reducers/noteReducer'
 
 const NewNote = () => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state)
+  const state = useSelector(state => state)
+ 
+  
   const addNote = async (event) => {
     event.preventDefault()
-    // 获取input: name= ''
     const content = event.target.note.value
-    const object = {
-      content: content,
-      userId : user
-    }
     event.target.note.value = ''
-
-    // 抽象在reducer实现,只用专注于create.
-    // const newNote = await noteService.createNew(content)
-    
-    dispatch(createNote(object))
+    if (state.user.length !== 0) {
+      const object = {
+        "content": content,
+        "important": true,
+        "userId": state.user[0].id.toString()
+      }
+      dispatch(createNote(object))
+    } 
   }
 
   return (

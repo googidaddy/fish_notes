@@ -6,11 +6,12 @@ const userReducer = (state = [], action) => {
         case 'NEW_USER':
             return [...state, action.data]
         case 'LOGIN':
-            return [...state,action.data]
+            return action.data
         default:
             return state
     }
 }
+
 
 export const login = (data) => {
     return async dispatch => {
