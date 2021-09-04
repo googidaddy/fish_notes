@@ -13,15 +13,27 @@ const Note = ({ note, handleClick }) => {
 
 const Notes = () => {
   const dispatch = useDispatch()
-  // useSelector 选择所有便签,index.js中combine了对象.
+  
+  const user = useSelector(state => state.user)
+  let id
+  if (user.length === 0)
+  {
+    id = 0
+  } else {
+    id = user[0].id
+    }
+  
+  // console.log(id);
+  // const nottes = useSelector(state => state.notes.filter(note => note.user === id))
+  // console.log(nottes);
   const notes = useSelector(({ filter, notes }) => {
     
-    if ( filter === 'ALL' ) {
-      return notes
+    if (filter === 'ALL') {
+      return notes.filter(note => note.user === id)
     }
     return filter  === 'IMPORTANT' 
-      ? notes.filter(note => note.important)
-      : notes.filter(note => !note.important)
+      ? notes.filter(note => note.user === id && note.important)
+      : notes.filter(note => note.user === id && !note.important)
   })
 
   return(

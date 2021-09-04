@@ -3,6 +3,8 @@ import loginService from '../service/login'
 
 const userReducer = (state = [], action) => {
     switch (action.type) {
+        case "INIT_USER":
+            return action.data
         case 'NEW_USER':
             return [...state, action.data]
         case 'LOGIN':
@@ -12,6 +14,14 @@ const userReducer = (state = [], action) => {
     }
 }
 
+export const init_user = () => {
+    return dispatch => {
+        dispatch({
+            type: "INIT_USER",
+            data: []
+        })
+    }
+}
 
 export const login = (data) => {
     return async dispatch => {

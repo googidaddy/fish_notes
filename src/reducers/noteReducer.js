@@ -23,8 +23,6 @@ const noteReducer = (state = [], action) => {
   }
 }
 
-const generateId = () =>
-  Number((Math.random() * 1000000).toFixed(0))
 
 // Init-Notes
 export const initializeNotes = () => {
